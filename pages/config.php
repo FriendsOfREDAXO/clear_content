@@ -16,7 +16,6 @@ if (rex_post('formsubmit', 'string') == '1') {
 
     if ($this->getConfig('checkbox_categories_articles') == '1') {
         $sql = rex_sql::factory();
-        $sql->debugsql = 1;
         $sql->setquery("TRUNCATE TABLE rex_article");
         $sql->setquery("TRUNCATE TABLE rex_article_slice");
         $sql->setquery("TRUNCATE TABLE rex_article_slice_history");
