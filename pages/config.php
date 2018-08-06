@@ -25,6 +25,21 @@ if (rex_post('formsubmit', 'string') == '1') {
     }
 
 
+    // Medienkategorien löschen
+    $this->setConfig(rex_post('config', [
+        ['checkbox_media_cats', 'string'],
+    ]));
+
+    if ($this->getConfig('checkbox_media_cats') == '1') {
+        /*
+        $sql = rex_sql::factory();
+        $sql->setquery("TRUNCATE TABLE rex_media_category");
+        $this->setConfig('checkbox_media_cats') == '0';
+        echo rex_view::success($this->i18n('cc_del_success_media_cats'));
+        */
+
+        echo rex_view::success('MEdienkategorien löschen funktioniert noch nicht...:-)');
+    }
 
 }
 
@@ -32,20 +47,27 @@ if (rex_post('formsubmit', 'string') == '1') {
 $content .= '<fieldset><legend>' . $this->i18n('cc_legend_categories_articles') . '</legend>';
 $formElements = [];
 $n = [];
-$n['label'] = '<label for="demo_addon-config-checkbox">' . $this->i18n('cc_config_checkbox_categories_articles') . '</label>';
+$n['label'] = '<label>' . $this->i18n('cc_config_checkbox_categories_articles') . '</label>';
 $n['field'] = '<input type="checkbox" id="checkbox_categories_articles" name="config[checkbox_categories_articles]"' . (!empty($this->getConfig('checkbox_categories_articles')) && $this->getConfig('checkbox_categories_articles') == '1' ? ' checked="checked"' : '') . ' value="1" />';
 $formElements[] = $n;
-
 $fragment = new rex_fragment();
 $fragment->setVar('elements', $formElements, false);
 $content .= $fragment->parse('core/form/checkbox.php');
 
 
-
-
-$content .= '<fieldset><legend>' . $this->i18n('cc_legend_slices') . '</legend>';
 $content .= '<fieldset><legend>' . $this->i18n('cc_legend_media') . '</legend>';
-$content .= '<fieldset><legend>' . $this->i18n('cc_legend_mediacategories') . '</legend>';
+
+
+// Medienkategorien löschen
+
+$formElements = [];
+$n = [];
+$n['label'] = '<label>' . $this->i18n('cc_config_checkbox_media_cats') . '</label>';
+$n['field'] = '<input type="checkbox" id="checkbox_media_cats" name="config[checkbox_media_cats]"' . (!empty($this->getConfig('checkbox_media_cats')) && $this->getConfig('checkbox_media_cats') == '1' ? ' checked="checked"' : '') . ' value="1" />';
+$formElements[] = $n;
+$fragment = new rex_fragment();
+$fragment->setVar('elements', $formElements, false);
+$content .= $fragment->parse('core/form/checkbox.php');
 
 
 

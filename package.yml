@@ -2,7 +2,7 @@ package: clear_content
 version: '0.0.1'
 author: Friends Of REDAXO
 supportpage: https://github.com/FriendsOfREDAXO/clear_content
-kurzbeschreibung: 'Dieses addOn errmöglicht es Inhalte zu löschen.'
+kurzbeschreibung: 'Dieses AddOn errmöglicht es Inhalte zu löschen.'
 
 page:
     title: 'translate:clear_content'
