@@ -31,14 +31,11 @@ if (rex_post('formsubmit', 'string') == '1') {
     ]));
 
     if ($this->getConfig('checkbox_media_cats') == '1') {
-        /*
         $sql = rex_sql::factory();
         $sql->setquery("TRUNCATE TABLE rex_media_category");
+        $sql->setquery("UPDATE rex_media SET category_id = 0");
         $this->setConfig('checkbox_media_cats') == '0';
         echo rex_view::success($this->i18n('cc_del_success_media_cats'));
-        */
-
-        echo rex_view::success('MEdienkategorien löschen funktioniert noch nicht...:-)');
     }
 
 }
