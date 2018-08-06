@@ -1,0 +1,22 @@
+clear_content = Clear-Content
+
+
+cc_help = Hilfe
+
+
+cc_config = Konfiguration
+
+
+
+
+
+cc_legend_categories_articles = Kategorien und Artikel
+cc_config_checkbox_categories_articles = Alle Kategorien und Artikel löschen
+cc_del_success_categories_articles = Alle Kategorien und Artikel wurden gelöscht
+
+cc_legend_slices = Alle Artikelinhalte löschen
+
+cc_legend_media = Alle Medien löschen
+cc_legend_mediacategories = Alle Medienkategorien löschen
+
+cc_config_clear = Inhalte unwiderruflich löschen
