@@ -6,19 +6,25 @@ cc_help = Hilfe
 
 cc_config = Konfiguration
 
+cc_legend_languages = Sprachen (funktioniert noch nicht)
+cc_config_checkbox_lang_all = Inhalte in allen Sprachen löschen
 
+
+cc_legend_slices = Inhalte (Slices)
+cc_config_checkbox_slices = Inhalte löschen
+cc_del_success_slices = Alle Inhalte wurden gelöscht
 
 cc_legend_categories_articles = Kategorien und Artikel
-cc_config_checkbox_categories_articles = Alle Kategorien und Artikel löschen
+cc_config_checkbox_categories_articles = alle Kategorien und Artikel löschen
 cc_del_success_categories_articles = Alle Kategorien und Artikel wurden gelöscht
 
 
 
-
 cc_legend_media = Medien
-cc_config_checkbox_media_cats = Alle Medienkategorien löschen
+cc_config_checkbox_media_cats = alle Medienkategorien löschen
 cc_del_success_media_cats = Alle Medienkategorien wurden gelöscht
 
-
+cc_config_checkbox_media = alle Medien löschen (funktioniert noch nicht)
+cc_del_success_media = Alle Medien wurden gelöscht
 
 cc_config_clear = Inhalte unwiderruflich löschen

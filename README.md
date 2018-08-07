@@ -2,11 +2,13 @@
 
 Das AddOn ermöglicht es Inhalte einer bestehenden REDAXO Webseite zu löschen.
 
-### geplante Funktionen: 
+### Funktionen 
 - Kategorien und Artikel löschen
+- alle Medienkategorien löschen
+
+### geplante Funktionen 
 - alle Inhalte löschen
 - alle Medien löschen
-- alle Medienkategorien löschen
 - Berücksichtigung der Mehrsprachigkeit
 - einzelne TableManger Tabellen löschbar machen?
 - evtl. externe Addons (z.B.: SPROG) berücksichtigen
