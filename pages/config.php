@@ -8,18 +8,18 @@ if (rex_post('formsubmit', 'string') == '1') {
 
 
     $this->setConfig(rex_post('config', [
-        ['checkbox_languages_all', 'string'],
+        ['checkbox_slices_all', 'string'],
         ['checkbox_categories_articles', 'string'],
         ['checkbox_media_cats', 'string'],
         ['checkbox_media', 'string'],
-        ['checkbox_slices', 'string']
+        ['checkbox_slices_all', 'string']
     ]));
 
 
     foreach (rex_clang::getAll(false) as $lang) {
         $lang_id   = $lang->getValue('id');
         $this->setConfig(rex_post('config', [
-            ['checkbox_languages'.$lang_id, 'string']
+            ['checkbox_slices_lang_'.$lang_id, 'string']
         ]));
     }
 
@@ -27,12 +27,24 @@ if (rex_post('formsubmit', 'string') == '1') {
 
 
     // Slices
-    if ($this->getConfig('checkbox_slices') == '1') {
+    if ($this->getConfig('checkbox_slices_all') == '1' ) {
         $sql->setquery("TRUNCATE TABLE rex_article_slice_history");
         $sql->setquery("TRUNCATE TABLE rex_article_slice");
         echo rex_view::success($this->i18n('cc_del_success_slices'));
     }
 
+
+    if ($this->getConfig('checkbox_slices_all') != '1' ) {
+        foreach (rex_clang::getAll(false) as $lang) {
+            $lang_id = $lang->getValue('id');
+            $lang_name = $lang->getValue('name');
+            if ($this->getConfig('checkbox_slices_lang_' . $lang_id) == '1') {
+                $sql->setquery("DELETE FROM rex_article_slice WHERE clang_id = " . $lang_id);
+                $sql->setquery("DELETE FROM rex_article_slice_history WHERE clang_id = " . $lang_id);
+                echo rex_view::success($this->i18n('cc_del_success_slices1').' <b>'.$lang_name.'</b> '.$this->i18n('cc_del_success_slices2'));
+            }
+        }
+    }
 
     // Kategorien und Artikel löschen
     if ($this->getConfig('checkbox_categories_articles') == '1') {
@@ -51,41 +63,42 @@ if (rex_post('formsubmit', 'string') == '1') {
 
     // Medien löschen
     if ($this->getConfig('checkbox_media') == '1') {
-        // $sql = rex_sql::factory();
-        // $sql->setquery("TRUNCATE TABLE rex_media_category");
-        // $sql->setquery("UPDATE rex_media SET category_id = 0");
+        // rex_dir::deleteIterator(rex_finder::factory(rex_path::media())->ignoreFiles('.redaxo'));
+        rex_dir::deleteIterator(rex_finder::factory(rex_path::media())
+            ->filesOnly()
+            ->ignoreFiles('.redaxo')
+        );
+        $sql = rex_sql::factory();
+        $sql->setquery("TRUNCATE TABLE rex_media");
+        $sql->setquery("UPDATE rex_media SET category_id = 0");
         echo rex_view::success($this->i18n('cc_del_success_media'));
     }
 
     foreach (rex_clang::getAll(false) as $lang) {
         $lang_id   = $lang->getValue('id');
-        $this->setConfig('checkbox_languages'.$lang_id) == '';
+        $this->setConfig('checkbox_slices_lang_'.$lang_id) == '';
     }
+
     $this->setConfig('checkbox_categories_articles') == '';
     $this->setConfig('checkbox_media_cats') == '';
     $this->setConfig('checkbox_media') == '';
-    $this->setConfig('checkbox_slices') == '';
+    $this->setConfig('checkbox_slices_all') == '';
     rex_delete_cache();
-
 }
 
 
-// Sprachen
- $this->setConfig('checkbox_languages_all') == '1';
-
-if (count(rex_clang::getAll(false)) > 1) {
-    $content .= '<fieldset><legend>' . $this->i18n('cc_legend_languages') . '</legend>';
-    $content .= '<p class="hint">Es werden nur die ausgewählten Inhalte und nicht die "Sprachen" gelöscht!</p>';
+    // Slices
+    $content .= '<fieldset><legend>' . $this->i18n('cc_legend_slices') . '</legend>';
     $formElements = [];
     $n = [];
-    $n['label'] = '<label>' . $this->i18n('cc_config_checkbox_lang_all') . '</label>';
-    $n['field'] = '<input type="checkbox" id="checkbox_languages_all" name="config[checkbox_languages_all]"' . (!empty($this->getConfig('checkbox_languages_all')) && $this->getConfig('checkbox_languages_all') == '1' ? ' checked="checked"' : '') . ' value="1" />';
+    $n['label'] = '<label>' . $this->i18n('cc_config_checkbox_slices_all') . '</label>';
+    $n['field'] = '<input type="checkbox" id="checkbox_languages_all" name="config[checkbox_slices_all]"' . (!empty($this->getConfig('checkbox_slices_all')) && $this->getConfig('checkbox_slices_all') == '1' ? ' checked="checked"' : '') . ' value="1" />';
     $formElements[] = $n;
     $fragment = new rex_fragment();
     $fragment->setVar('elements', $formElements, false);
     $content .= $fragment->parse('core/form/checkbox.php');
 
-
+if (count(rex_clang::getAll(false)) > 1) {
     foreach (rex_clang::getAll(false) as $lang) {
 
         $lang_id = $lang->getValue('id');
@@ -93,8 +106,8 @@ if (count(rex_clang::getAll(false)) > 1) {
 
         $formElements = [];
         $n = [];
-        $n['label'] = '<label>' . $lang_name . '</label>';
-        $n['field'] = '<input type="checkbox" id="checkbox_languages_' . $lang_id . '" name="config[checkbox_languages_' . $lang_id . ']"' . (!empty($this->getConfig('checkbox_languages' . $lang_id)) && $this->getConfig('checkbox_languages' . $lang_id) == '1' ? ' checked="checked"' : '') . ' value="1" />';
+        $n['label'] = '<label>'.$this->i18n('cc_info1_slices') .' <b>'. $lang_name . ' (ID = '.$lang_id.')</b> '.$this->i18n('cc_info2_slices') .'</label>';
+        $n['field'] = '<input type="checkbox" id="checkbox_slices_lang_' . $lang_id . '" name="config[checkbox_slices_lang_' . $lang_id . ']"' . (!empty($this->getConfig('checkbox_slices_lang_' . $lang_id)) && $this->getConfig('checkbox_slices_lang_' . $lang_id) == '1' ? ' checked="checked"' : '') . ' value="1" />';
         $formElements[] = $n;
         $fragment = new rex_fragment();
         $fragment->setVar('elements', $formElements, false);
@@ -107,7 +120,6 @@ if (count(rex_clang::getAll(false)) > 1) {
 
 // Kategorien und Artikel löschen
 $content .= '<fieldset><legend>' . $this->i18n('cc_legend_categories_articles') . '</legend>';
-$content .= '<p class="hint">Kategorien und Artikel werden immer in allen Sprachen gelöscht!</p>';
 $formElements = [];
 $n = [];
 $n['label'] = '<label>' . $this->i18n('cc_config_checkbox_categories_articles') . '</label>';
@@ -118,27 +130,8 @@ $fragment = new rex_fragment();
 $fragment->setVar('elements', $formElements, false);
 $content .= $fragment->parse('core/form/checkbox.php');
 
-
-
-// Inhalte (Slices)
-$content .= '<fieldset><legend>' . $this->i18n('cc_legend_slices') . '</legend>';
-$formElements = [];
-$n = [];
-$n['label'] = '<label>' . $this->i18n('cc_config_checkbox_slices') . '</label>';
-$n['field'] = '<input type="checkbox" id="checkbox_slices" name="config[checkbox_slices]"' . (!empty($this->getConfig('checkbox_slices')) && $this->getConfig('checkbox_slices') == '1' ? ' checked="checked"' : '') . ' value="1" />';
-
-$formElements[] = $n;
-$fragment = new rex_fragment();
-$fragment->setVar('elements', $formElements, false);
-$content .= $fragment->parse('core/form/checkbox.php');
-
-
-
 // Medien
 $content .= '<fieldset><legend>' . $this->i18n('cc_legend_media') . '</legend>';
-$content .= '<p class="hint">Medienkategorien werden immer in allen Sprachen gelöscht!</p>';
-$content .= '<p class="hint">Medien werden immer in allen Sprachen gelöscht!</p>';
-
 // Medienkategorien löschen
 $formElements = [];
 $n = [];
@@ -163,9 +156,6 @@ $formElements = [];
 $n = [];
 $n['field'] = '<button class="btn btn-save rex-form-aligned" type="submit" name="save" value="' . $this->i18n('cc_config_clear') . '">' . $this->i18n('cc_config_clear') . '</button>';
 $formElements[] = $n;
-
-
-
 
 
 $fragment = new rex_fragment();
