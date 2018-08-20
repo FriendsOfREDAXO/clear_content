@@ -27,4 +27,9 @@ https://github.com/FriendsOfREDAXO/clear_content/issues
 **Projekt-Lead**
 
 [concedra.de / Oliver Kreischer](https://concedra.de)
+Zukünftig wahrscheinlich Stafen / https://github.com/dpf-dd
 
+
+---
+
+* Idee und Realisierung der ersten Version: [concedra.de / Oliver Kreischer](http://concedra.de)
