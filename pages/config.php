@@ -32,7 +32,10 @@ if (rex_post('formsubmit', 'string') == '1') {
            $sql->setquery("TRUNCATE TABLE rex_article_slice_history");
         }
 
-        $sql->setquery("TRUNCATE TABLE rex_article_slice");
+        if (rex_sql_table::get('rex_article_slice')->exists()) {
+            $sql->setquery("TRUNCATE TABLE rex_article_slice");
+        }
+
         echo rex_view::success($this->i18n('cc_del_success_slices'));
     }
 
@@ -41,7 +44,11 @@ if (rex_post('formsubmit', 'string') == '1') {
             $lang_id = $lang->getValue('id');
             $lang_name = $lang->getValue('name');
             if ($this->getConfig('checkbox_slices_lang_' . $lang_id) == '1') {
-                $sql->setquery("DELETE FROM rex_article_slice WHERE clang_id = " . $lang_id);
+
+
+                if (rex_sql_table::get('rex_article_slice')->exists()) {
+                    $sql->setquery("DELETE FROM rex_article_slice WHERE clang_id = " . $lang_id);
+                }
 
                 if (rex_sql_table::get('rex_article_slice_history')->exists()) {
                     $sql->setquery("DELETE FROM rex_article_slice_history WHERE clang_id = " . $lang_id);
@@ -54,8 +61,13 @@ if (rex_post('formsubmit', 'string') == '1') {
 
     // Kategorien und Artikel löschen
     if ($this->getConfig('checkbox_categories_articles') == '1') {
-        $sql->setquery("TRUNCATE TABLE rex_article");
-        $sql->setquery("TRUNCATE TABLE rex_article_slice");
+
+        if (rex_sql_table::get('rex_article')->exists()) {
+            $sql->setquery("TRUNCATE TABLE rex_article");
+        }
+        if (rex_sql_table::get('rex_article_slice')->exists()) {
+            $sql->setquery("TRUNCATE TABLE rex_article_slice");
+        }
         if (rex_sql_table::get('rex_article_slice_history')->exists()) {
             $sql->setquery("TRUNCATE TABLE rex_article_slice_history");
         }
@@ -64,8 +76,11 @@ if (rex_post('formsubmit', 'string') == '1') {
 
     // Medienkategorien löschen
     if ($this->getConfig('checkbox_media_cats') == '1') {
-        $sql->setquery("TRUNCATE TABLE rex_media_category");
-        $sql->setquery("UPDATE rex_media SET category_id = 0");
+
+        if (rex_sql_table::get('rex_media_category')->exists()) {
+            $sql->setquery("TRUNCATE TABLE rex_media_category");
+            $sql->setquery("UPDATE rex_media SET category_id = 0");
+        }
         echo rex_view::success($this->i18n('cc_del_success_media_cats'));
     }
 
@@ -77,8 +92,12 @@ if (rex_post('formsubmit', 'string') == '1') {
             ->ignoreFiles('.redaxo')
         );
         $sql = rex_sql::factory();
-        $sql->setquery("TRUNCATE TABLE rex_media");
-        $sql->setquery("UPDATE rex_media SET category_id = 0");
+
+        if (rex_sql_table::get('rex_media')->exists()) {
+            $sql->setquery("TRUNCATE TABLE rex_media");
+            $sql->setquery("UPDATE rex_media SET category_id = 0");
+
+        }
         echo rex_view::success($this->i18n('cc_del_success_media'));
     }
 
