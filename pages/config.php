@@ -25,14 +25,16 @@ if (rex_post('formsubmit', 'string') == '1') {
 
     $sql = rex_sql::factory();
 
-
     // Slices
     if ($this->getConfig('checkbox_slices_all') == '1' ) {
-        $sql->setquery("TRUNCATE TABLE rex_article_slice_history");
+
+        if (rex_sql_table::get('rex_article_slice_history')->exists()) {
+           $sql->setquery("TRUNCATE TABLE rex_article_slice_history");
+        }
+
         $sql->setquery("TRUNCATE TABLE rex_article_slice");
         echo rex_view::success($this->i18n('cc_del_success_slices'));
     }
-
 
     if ($this->getConfig('checkbox_slices_all') != '1' ) {
         foreach (rex_clang::getAll(false) as $lang) {
@@ -40,7 +42,11 @@ if (rex_post('formsubmit', 'string') == '1') {
             $lang_name = $lang->getValue('name');
             if ($this->getConfig('checkbox_slices_lang_' . $lang_id) == '1') {
                 $sql->setquery("DELETE FROM rex_article_slice WHERE clang_id = " . $lang_id);
-                $sql->setquery("DELETE FROM rex_article_slice_history WHERE clang_id = " . $lang_id);
+
+                if (rex_sql_table::get('rex_article_slice_history')->exists()) {
+                    $sql->setquery("DELETE FROM rex_article_slice_history WHERE clang_id = " . $lang_id);
+                }
+
                 echo rex_view::success($this->i18n('cc_del_success_slices1').' <b>'.$lang_name.'</b> '.$this->i18n('cc_del_success_slices2'));
             }
         }
@@ -50,7 +56,9 @@ if (rex_post('formsubmit', 'string') == '1') {
     if ($this->getConfig('checkbox_categories_articles') == '1') {
         $sql->setquery("TRUNCATE TABLE rex_article");
         $sql->setquery("TRUNCATE TABLE rex_article_slice");
-        $sql->setquery("TRUNCATE TABLE rex_article_slice_history");
+        if (rex_sql_table::get('rex_article_slice_history')->exists()) {
+            $sql->setquery("TRUNCATE TABLE rex_article_slice_history");
+        }
         echo rex_view::success($this->i18n('cc_del_success_categories_articles'));
     }
 
