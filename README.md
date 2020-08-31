@@ -5,6 +5,7 @@ Das AddOn ermöglicht es Inhalte einer bestehenden REDAXO Webseite zu löschen.
 ### Funktionen 
 - alle Inhalte (Sprachen werden berücksichtigt) löschen
 - alle Kategorien und Artikel (in allen Sprachen) löschen
+- Kategorien inkl. Unterkategorien löschen
 - alle Medienkategorien löschen
 - alle Medien löschen
 
@@ -26,11 +27,11 @@ https://github.com/FriendsOfREDAXO/clear_content/issues
 
 **Projekt-Lead**
 
-[concedra.de / Oliver Kreischer](https://concedra.de)
+[getaweb.de / Oliver Kreischer](https://getaweb.de)
 
-Zukünftig wahrscheinlich Stefan / https://github.com/dpf-dd
+
 
 
 ---
 
-* Idee und Realisierung der ersten Version: [concedra.de / Oliver Kreischer](http://concedra.de)
+* Idee und Realisierung der ersten Version: [getaweb.de / Oliver Kreischer](http://getaweb.de)

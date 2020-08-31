@@ -1,5 +1,5 @@
 package: clear_content
-version: '1.0.3'
+version: '1.1.0'
 author: Friends Of REDAXO
 supportpage: https://github.com/FriendsOfREDAXO/clear_content
 kurzbeschreibung: 'AddOn um REDAXO Inhalte zu löschen.'
