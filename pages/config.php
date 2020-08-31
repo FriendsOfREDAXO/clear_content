@@ -1,5 +1,60 @@
 <?php
 
+if (!function_exists('deleteCategory')) {
+
+    function deleteCategory($article_id = null) {
+        if (!$article_id) {
+            return;
+        }
+
+        //MAKE SURE WE ARE USING THE CATEGORY
+        $category_id = rex_article::get($article_id)->getCategoryId();
+
+        //DELETE IF ROOT ARTICLE
+        if ((int) $category_id == 0) {
+            rex_article_service::deleteArticle($article_id);
+            return;
+        }
+        //GET CHILDD CATEGORIES
+        $children = rex_category::get($category_id)->getChildren();
+        if ($children) {
+            foreach ($children as $child) {
+                //GET ARTICLES FOR CHILD
+                $articles = $child->getArticles();
+                if ($articles) {
+                    foreach ($articles as $article) {
+                        if ($article && !$article->isStartArticle()) {
+                            //DELETE ALL NON START ARTICLES
+                            rex_article_service::deleteArticle($article->getId());
+                        }
+                    }
+                }
+                if (0 == count($child->getChildren())) {
+                    //DELETE CAT AND START ARTICLE OF CAT
+                    rex_category_service::deleteCategory($child->getId());
+                } else {
+                    //RECURSE IF THERE ARE MORE CHILDREN
+                    deleteCategory($child->getId());
+                }
+            }
+        }
+        //DELETE ARTICLES AND THE CAT ITSELF
+        if (!rex_article::get($category_id)->isSiteStartArticle() && !rex_article::get($category_id)->isNotFoundArticle()) {
+            $articles = rex_category::get($category_id)->getArticles();
+            if ($articles) {
+                foreach ($articles as $article) {
+                    if ($article && !$article->isStartArticle()) {
+                        rex_article_service::deleteArticle($article->getId());
+                    }
+                }
+            }
+            rex_category_service::deleteCategory($category_id);
+        }
+
+        return $category_id;
+    }
+}
+
 $content = '';
 $buttons = '';
 
@@ -10,6 +65,7 @@ if (rex_post('formsubmit', 'string') == '1') {
     $this->setConfig(rex_post('config', [
         ['checkbox_slices_all', 'string'],
         ['checkbox_categories_articles', 'string'],
+        ['specific_category_articles', 'string'],
         ['checkbox_media_cats', 'string'],
         ['checkbox_media', 'string'],
         ['checkbox_slices_all', 'string']
@@ -72,6 +128,14 @@ if (rex_post('formsubmit', 'string') == '1') {
             $sql->setquery("TRUNCATE TABLE ". rex::getTablePrefix() ."article_slice_history");
         }
         echo rex_view::success($this->i18n('cc_del_success_categories_articles'));
+    }
+
+    // Bestimmte Kategorie und Artikel rekursiv löschen
+    if ($this->getConfig('specific_category_articles') > 0) {
+
+        $article_id = $this->getConfig('specific_category_articles');
+        $deleted_category_id = deleteCategory($article_id);
+        echo rex_view::success(sprintf($this->i18n('cc_del_success_specific_category_articles'), $deleted_category_id));
     }
 
     // Medienkategorien löschen
@@ -156,6 +220,18 @@ $formElements[] = $n;
 $fragment = new rex_fragment();
 $fragment->setVar('elements', $formElements, false);
 $content .= $fragment->parse('core/form/checkbox.php');
+
+// Bestimmte Kategorien und Artikel rekursiv löschen
+$content .= '<fieldset><legend>' . $this->i18n('cc_legend_specific_category_articles') . '</legend>';
+$formElements = [];
+$n = [];
+$n['label'] = '<label for="REX_LINK_1_NAME">' . $this->i18n('cc_select_specific_category_articles') . '</label>';
+$n['field'] = rex_var_link::getWidget(1, 'config[specific_category_articles]', '');
+$formElements[] = $n;
+
+$fragment = new rex_fragment();
+$fragment->setVar('elements', $formElements, false);
+$content .= $fragment->parse('core/form/container.php');
 
 // Medien
 $content .= '<fieldset><legend>' . $this->i18n('cc_legend_media') . '</legend>';
