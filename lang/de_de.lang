@@ -29,3 +29,4 @@ cc_config_checkbox_media                = alle Medien löschen
 cc_del_success_media                    = Alle Medien wurden gelöscht
 
 cc_config_clear                         = Inhalte unwiderruflich löschen
+cc_config_clear_confirmation            = Die Auswahl wird unwiderruflich gelöscht und kann nicht rückgängig gemacht werden. Ein Backup wird dringend empfohlen!
