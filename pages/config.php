@@ -257,7 +257,7 @@ $content .= $fragment->parse('core/form/checkbox.php');
 
 $formElements = [];
 $n = [];
-$n['field'] = '<button class="btn btn-save rex-form-aligned" type="submit" name="save" value="' . $this->i18n('cc_config_clear') . '">' . $this->i18n('cc_config_clear') . '</button>';
+$n['field'] = '<button class="btn btn-save rex-form-aligned" type="submit" name="save" value="' . $this->i18n('cc_config_clear') . '" data-confirm="' . $this->i18n('cc_config_clear_confirmation') . '">' . $this->i18n('cc_config_clear') . '</button>';
 $formElements[] = $n;
 
 
