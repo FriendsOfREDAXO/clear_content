@@ -1,3 +1,9 @@
+### Info
+
+Ich werde demnächst das AddOn weiter entwicklen. Sofern es Wünsche gibt bitte unbedingt als Issue eintragen.
+
+---
+
 # Clear-Content 
 
 Das AddOn ermöglicht es Inhalte einer bestehenden REDAXO Webseite zu löschen.
