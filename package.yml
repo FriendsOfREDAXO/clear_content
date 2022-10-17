@@ -1,5 +1,5 @@
 package: clear_content
-version: '1.2-beta'
+version: '1.2.1-beta'
 author: Friends Of REDAXO
 supportpage: https://github.com/FriendsOfREDAXO/clear_content
 kurzbeschreibung: 'AddOn um REDAXO Inhalte zu löschen.'
@@ -10,15 +10,12 @@ page:
     pjax: false
     icon: rex-icon fa fa-trash
     subpages:
-        config:
-            { title: 'translate:clear_content'}
-        help:
-            { title: 'translate:cc_help'}
+        config: { title: translate:clear_content}
+        help: { title: translate:cc_readme, subPath: README.md }
 
 requires:
     redaxo: '^5.2'
     packages:
         media_manager: '^2.0.1'
     php:
-        version: '>=5.6'
-
+        version: '>=7.3'

@@ -1,6 +1,6 @@
 clear_content                           = Clear-Content
 
-cc_help                                 = Hilfe
+cc_readme                               = Readme
 
 cc_legend_slices                        = Inhalte (Slices)
 cc_config_checkbox_slices               = Inhalte löschen

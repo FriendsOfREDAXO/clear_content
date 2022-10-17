@@ -52,7 +52,6 @@ if (!function_exists('deleteCategory')) {
             }
             rex_category_service::deleteCategory($category_id);
         }
-
         return $category_id;
     }
 }
@@ -101,15 +100,16 @@ if (rex_post('formsubmit', 'string') === '1') {
         foreach (rex_clang::getAll(false) as $lang) {
             $lang_id = $lang->getValue('id');
             $lang_name = $lang->getValue('name');
-            if ($addon->getConfig('checkbox_slices_lang_' . $lang_id) === '1') {
+            if ($addon->getConfig('checkbox_slices_lang_' . $lang_id) === $lang) {
 
 
                 if (rex_sql_table::get(rex::getTablePrefix() .'article_slice')->exists()) {
-                    $sql->setquery("DELETE FROM ". rex::getTablePrefix() ."article_slice WHERE clang_id = " . $lang_id);
+                    $sql->setquery('DELETE FROM '. rex::getTablePrefix() .'article_slice WHERE clang_id !=:cid', array('cid'=> $lang_id));
+
                 }
 
                 if (rex_sql_table::get(rex::getTablePrefix() .'article_slice_history')->exists()) {
-                    $sql->setquery("DELETE FROM ". rex::getTablePrefix() ."article_slice_history WHERE clang_id = " . $lang_id);
+                    $sql->setquery('DELETE FROM '. rex::getTablePrefix() .'article_slice_history WHERE clang_id !=:cid', array('cid'=> $lang_id));
                 }
 
                 echo rex_view::success($addon->i18n('cc_del_success_slices1').' <b>'.$lang_name.'</b> '.$addon->i18n('cc_del_success_slices2'));
