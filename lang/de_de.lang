@@ -17,9 +17,14 @@ cc_legend_categories_articles          = Kategorien und Artikel
 cc_config_checkbox_categories_articles = alle Kategorien und Artikel (in allen Sprachen) löschen
 cc_del_success_categories_articles     = Alle Kategorien und Artikel wurden gelöscht
 
-cc_legend_specific_category_articles      = Bestimmte Kategorie und Artikel inkl. Inhalte löschen
+cc_legend_specific_category_articles      = Bestimmte Artikel inkl. Inhalte (in allen Sprachen) löschen
 cc_select_specific_category_articles      = Kategorie
 cc_del_success_specific_category_articles = Kategorie %s wurde gelöscht
+
+cc_legend_specific_articles      = Bestimmte und Artikel inkl. Inhalte (in allen Sprachen) löschen
+cc_select_specific_articles      = Artikel
+cc_del_success_specific_articles = Artikel %s wurde gelöscht
+
 
 cc_legend_media                         = Medien
 cc_config_checkbox_media_cats           = alle Medienkategorien löschen
