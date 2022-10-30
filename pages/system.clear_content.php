@@ -218,6 +218,7 @@ $n = [];
 $n['label'] = '<label>' . $addon->i18n('cc_config_checkbox_categories_articles') . '</label>';
 $n['field'] = '<input type="checkbox" id="checkbox_categories_articles" name="config[checkbox_categories_articles]"' . (($addon->getConfig('checkbox_categories_articles') !== '' ) && $addon->getConfig('checkbox_categories_articles') === '1' ? ' checked="checked"' : '') . ' value="1" />';
 
+
 $formElements[] = $n;
 $fragment = new rex_fragment();
 $fragment->setVar('elements', $formElements, false);
@@ -234,6 +235,20 @@ $formElements[] = $n;
 $fragment = new rex_fragment();
 $fragment->setVar('elements', $formElements, false);
 $content .= $fragment->parse('core/form/container.php');
+
+
+// Ausgewählte Artikel löschen
+$content .= '<fieldset><legend>' . $addon->i18n('cc_legend_specific_articles') . '</legend>';
+$formElements = [];
+$n = [];
+$n['label'] = '<label for="REX_LINK_2_NAME">' . $addon->i18n('cc_select_specific_articles') . '</label>';
+$n['field'] = rex_var_linklist::getWidget(1, 'config[specific_articles]', '');
+$formElements[] = $n;
+
+$fragment = new rex_fragment();
+$fragment->setVar('elements', $formElements, false);
+$content .= $fragment->parse('core/form/container.php');
+
 
 // Medien
 $content .= '<fieldset><legend>' . $addon->i18n('cc_legend_media') . '</legend>';
