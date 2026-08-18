@@ -2,6 +2,12 @@
 
 Alle wesentlichen Änderungen an Clear Content werden in dieser Datei dokumentiert. Das Format orientiert sich an [Keep a Changelog](https://keepachangelog.com/de/1.1.0/) und [Semantic Versioning](https://semver.org/lang/de/).
 
+## [2.0.0-beta2] - 2026-08-18
+
+### Hinzugefügt
+
+- GitHub-Actions-Workflow für automatisierte Prüfungen und Releases ergänzt. Danke an [@skerbis](https://github.com/skerbis).
+
 ## [2.0.0-beta1] - 2026-08-18
 
 ### Hinzugefügt

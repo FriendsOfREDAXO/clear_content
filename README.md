@@ -58,7 +58,7 @@ Die Backend-Seite enthält nur die Formular-, Vorschau- und Ablaufsteuerung. Die
 
 Neue Bereinigungsarten können dadurch ergänzt werden, ohne die Backend-Seite wieder mit Löschlogik zu vermischen.
 
-Die Issues [#5](https://github.com/FriendsOfREDAXO/clear_content/issues/5), [#9](https://github.com/FriendsOfREDAXO/clear_content/issues/9), [#12](https://github.com/FriendsOfREDAXO/clear_content/issues/12), [#16](https://github.com/FriendsOfREDAXO/clear_content/issues/16) und [#17](https://github.com/FriendsOfREDAXO/clear_content/issues/17) sind in Version 2.0.0-beta1 umgesetzt. Optionale Integrationen für weitere Add-ons aus [Issue #6](https://github.com/FriendsOfREDAXO/clear_content/issues/6) gehören ausdrücklich nicht zum Funktionsumfang.
+Die Issues [#5](https://github.com/FriendsOfREDAXO/clear_content/issues/5), [#9](https://github.com/FriendsOfREDAXO/clear_content/issues/9), [#12](https://github.com/FriendsOfREDAXO/clear_content/issues/12), [#16](https://github.com/FriendsOfREDAXO/clear_content/issues/16) und [#17](https://github.com/FriendsOfREDAXO/clear_content/issues/17) sind in Version 2.0.0-beta2 umgesetzt. Optionale Integrationen für weitere Add-ons aus [Issue #6](https://github.com/FriendsOfREDAXO/clear_content/issues/6) gehören ausdrücklich nicht zum Funktionsumfang.
 
 ## Support
 
