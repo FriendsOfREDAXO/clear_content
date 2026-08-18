@@ -1,22 +1,42 @@
 package: clear_content
-version: '2.0.0-beta'
+version: '2.0.0-beta1'
 author: Friends Of REDAXO
 supportpage: https://github.com/FriendsOfREDAXO/clear_content
-kurzbeschreibung: 'AddOn um REDAXO Inhalte zu löschen.'
 
 page:
-    hidden: true
-
-pages:
-    system/clear_content:
-        title: 'translate:clear_content'
-        perm: admin
-        icon:  rex-icon fa fa-trash
-        pjax: true
+    title: translate:clear_content_title
+    perm: admin
+    pjax: false
+    icon: rex-icon fa-trash
+    subpages:
+        content:
+            title: translate:clear_content_tab_content
+        media:
+            title: translate:clear_content_tab_media
+        tables:
+            title: translate:clear_content_tab_tables
+        info:
+            title: translate:clear_content_info
+            itemClass: pull-right
+            subpages:
+                help:
+                    title: translate:clear_content_help
+                    subPath: README.md
+                changelog:
+                    title: translate:clear_content_changelog
+                    subPath: CHANGELOG.md
+                license:
+                    title: translate:clear_content_license
+                    subPath: LICENSE.md
 
 requires:
-    redaxo: '^5.2'
+    php: '>=8.3'
+    redaxo: ^5.21
     packages:
-        media_manager: '^2.0.1'
-    php:
-        version: '>=7.3'
+        structure: ^2.20
+        structure/content: ^2.20
+        mediapool: ^2.18
+        yform: ^5.0
+
+installer_ignore:
+    - .DS_Store
